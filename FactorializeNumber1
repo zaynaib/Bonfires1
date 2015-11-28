@@ -1,0 +1,12 @@
+function factorialize(num) {
+  counter =num;
+  
+var factorial = 1;
+for (i = 1; i <= num; i++)
+{
+  factorial *= i;
+}
+ num=factorial;
+  return num;
+}
+factorialize(5);
