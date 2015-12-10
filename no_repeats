@@ -1,0 +1,47 @@
+var facMemo = [];
+
+function factorial (num) {
+  if (num === 0 || num === 1) {
+    return 1;
+  }
+  if (facMemo[num]) {
+    return facMemo[n];
+  }
+  return facMemo[num] || factorial(num-1) * num;
+}
+
+function permAlone(str) {
+  var arr = str.split('');
+  var startPerm = factorial(str.length);
+  var memoInvalid = {};
+
+  function invalidPermutations(char, index, arr) {
+    var memo = char+arr.slice().sort().join('');
+    if(memoInvalid[memo])
+    {
+      return memoInvalid[memo];
+    }
+    if(arr.length === 0) {
+      return 0;
+    }
+    var newArr = arr.slice();//clone the array
+    newArr.splice(arr.indexOf(char),1);
+
+    newArr = newArr.map(function(nextChar,index,arr) {
+      if (char === nextChar) {
+        return factorial(arr.length-1);
+      }
+      else {
+        return invalidPermutations(nextChar, null, arr);
+      }
+    });
+    memoInvalid[memo] = newArr.reduce(function(a,b) { return a+b;},0);
+    return memoInvalid[memo];
+  }
+
+  arr = arr.map(invalidPermutations);
+
+  return startPerm - arr.reduce(function(a,b) {return a+b;});
+
+}
+permAlone('aab');
